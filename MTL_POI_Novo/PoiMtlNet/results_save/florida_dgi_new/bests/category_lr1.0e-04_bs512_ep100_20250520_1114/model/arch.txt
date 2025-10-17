@@ -1,0 +1,25 @@
+CategoryHeadTransformer(
+  (token_proj): Linear(in_features=64, out_features=64, bias=True)
+  (transformer): TransformerEncoder(
+    (layers): ModuleList(
+      (0-1): 2 x TransformerEncoderLayer(
+        (self_attn): MultiheadAttention(
+          (out_proj): NonDynamicallyQuantizableLinear(in_features=16, out_features=16, bias=True)
+        )
+        (linear1): Linear(in_features=16, out_features=64, bias=True)
+        (dropout): Dropout(p=0.2, inplace=False)
+        (linear2): Linear(in_features=64, out_features=16, bias=True)
+        (norm1): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (norm2): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (dropout1): Dropout(p=0.2, inplace=False)
+        (dropout2): Dropout(p=0.2, inplace=False)
+      )
+    )
+    (norm): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+  )
+  (classifier): Sequential(
+    (0): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+    (1): GELU(approximate='none')
+    (2): Linear(in_features=16, out_features=7, bias=True)
+  )
+)

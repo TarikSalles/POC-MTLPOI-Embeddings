@@ -1,0 +1,11 @@
+{
+    "fold_number": 4,
+    "duration": 240.87001490592957,
+    "best_epochs": {
+        "category": {
+            "epoch": 18,
+            "accuracy": 0.5491764705882353,
+            "f1": 0.4866456720408731
+        }
+    }
+}
