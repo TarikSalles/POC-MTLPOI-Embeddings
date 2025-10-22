@@ -1,15 +1,13 @@
 import os
 import pickle
-
 import joblib
 import torch
+import argparse
+import logging
 
 from configs.model import MTLModelConfig
 from configs.paths import OUTPUT_ROOT, RESULTS_ROOT
 from src.data.create_fold import create_folds
-
-import logging
-
 from src.model.mtlnet.engine.mtl_train import train_with_cross_validation
 from utils.ml_history.metrics import MLHistory
 from utils.ml_history.utils.dataset import DatasetHistory
@@ -17,17 +15,29 @@ from utils.ml_history.utils.dataset import DatasetHistory
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == '__main__':
-    state = "montana"  # Replace with the desired state
+    parser = argparse.ArgumentParser(description="Treina MTLNet para um estado específico")
+    parser.add_argument(
+        "state",
+        type=str,
+        help="Nome do estado (ex: montana, california, florida)"
+    )
+    args = parser.parse_args()
+
+    state = args.state.lower().strip()
+    logging.info(f"Iniciando treinamento para o estado: {state}")
+
     output_dir = f'{OUTPUT_ROOT}/{state}/pre-processing'
-    # output_dir = f'/Users/vitor/Desktop/mestrado/ingred/data/ori/pre-processing/chicago'
 
-    # Define parameters
-    next_data_path = f'{output_dir}/next-input.csv'  # Replace with actual path
-    category_data_path = f'{output_dir}/category-input.csv'  # Replace with actual path
+    next_data_path = f'{output_dir}/next-input.csv'
+    category_data_path = f'{output_dir}/category-input.csv'
 
-    logging.info(f'Creating folds')
+    if not os.path.exists(next_data_path):
+        raise FileNotFoundError(f"Arquivo não encontrado: {next_data_path}")
+    if not os.path.exists(category_data_path):
+        raise FileNotFoundError(f"Arquivo não encontrado: {category_data_path}")
 
-    # Process data and create dataloaders
+    logging.info(f'Criando folds para {state}')
+
     fold_results, folds_path = create_folds(
         next_data_path,
         category_data_path,
@@ -43,15 +53,14 @@ if __name__ == '__main__':
             DatasetHistory(
                 raw_data=next_data_path,
                 folds_signature=folds_path,
-                description="Data related to next POI prediction. Data with 107 features",
+                description=f"Next POI data for {state}."
             ),
             DatasetHistory(
                 raw_data=category_data_path,
                 folds_signature=folds_path,
-                description="Data related to category prediction. Data with 107 features",
+                description=f"Category prediction data for {state}."
             )
         }
-
     )
 
     with history.context() as history:
@@ -63,4 +72,8 @@ if __name__ == '__main__':
             learning_rate=MTLModelConfig.LEARNING_RATE
         )
 
-    history.storage.save(path=RESULTS_ROOT + f'/{state}')
+    save_path = os.path.join(RESULTS_ROOT, state)
+    os.makedirs(save_path, exist_ok=True)
+    history.storage.save(path=save_path)
+
+    logging.info(f"Treinamento concluído com sucesso para {state}. Resultados salvos em {save_path}")

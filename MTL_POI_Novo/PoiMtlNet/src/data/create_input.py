@@ -194,6 +194,8 @@ def processing_sequences_next(df_nextpoi_sequences: pd.DataFrame,
                               embeddings_with_category: pd.DataFrame,
                               embeddings_without_category: pd.DataFrame,
                               save_step: int = 10000) -> pd.DataFrame:
+
+    print(output_path)
     """
     Generate input data for next POI prediction model using batch processing,
     writing incrementally to CSV for much faster performance.
@@ -411,8 +413,26 @@ def process_state(state):
     generate_next_input(df_embb, df_filter, sequences_path, next_input_path)
 
 
-if __name__ == '__main__':
-    # STATE_NAME = ["alabama","arizona","california", "florida", "georgia", "texas"]
-    STATE_NAME = ["montana"]
-    with ProcessPoolExecutor(max_workers=12) as executor:
-        executor.map(process_state, STATE_NAME)
+if __name__ == "__main__":
+    import argparse
+    from concurrent.futures import ProcessPoolExecutor
+
+    parser = argparse.ArgumentParser(
+        description="Gera category-input, poi-sequences e next-input para um ou mais estados"
+    )
+    parser.add_argument(
+        "states", nargs="+", type=str,
+        help="Lista de estados. Ex: montana california florida"
+    )
+    parser.add_argument(
+        "--max-workers", type=int, default=4,
+        help="Número de processos em paralelo (default=4)"
+    )
+    args = parser.parse_args()
+
+    states = [s.lower().strip() for s in args.states]
+    print(f"[INFO] process_state para: {states}")
+
+    with ProcessPoolExecutor(max_workers=args.max_workers) as executor:
+        executor.map(process_state, states)
+

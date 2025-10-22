@@ -1,5 +1,5 @@
 class InputsConfig:
-    EMBEDDING_DIM = 137 # DGI
+    EMBEDDING_DIM = 64 # DGI
     # EMBEDDING_DIM = 50*2+7 #HMRM
     SLIDE_WINDOW = 9
     PAD_VALUE = 0

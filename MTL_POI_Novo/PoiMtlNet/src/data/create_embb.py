@@ -94,5 +94,5 @@ if __name__ == '__main__':
     # _ = create_embeddings('arizona', path_arizona, weight=0.1, K=7, embedding_size=50)
     # _ = create_embeddings('georgia', path_georgia, weight=0.1, K=7, embedding_size=50)
     # _ = create_embeddings('california', path_california, weight=0.1, K=7, embedding_size=50)
-    _ = create_embeddings('montana', path_montana, weight=0.1, K=7, embedding_size=64)
+    #_ = create_embeddings('montana', path_montana, weight=0.1, K=7, embedding_size=64)
     # _ = create_embeddings('texas', path_texas, weight=0.1, K=7, embedding_size=50)
