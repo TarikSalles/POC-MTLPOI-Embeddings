@@ -401,6 +401,28 @@ from concurrent.futures import ProcessPoolExecutor
 
 def process_state(state):
     df_embb = pd.read_csv(f'{OUTPUT_ROOT}/{state}/embeddings.csv')
+    df_embb_localization = pd.read_csv(f'{OUTPUT_ROOT}/{state}/embeddings-poi-encoder.csv')
+
+    num_cols = [c for c in df_embb.columns if c.isdigit()]
+    
+    merged = pd.merge(
+        df_embb[["placeid"] + num_cols],
+        df_embb_localization[["placeid"] + num_cols],
+        on="placeid",
+        how="inner",
+        suffixes=("_emb", "_loc")
+    )
+
+    for c in num_cols:
+        merged[c] = merged[f"{c}_emb"] + merged[f"{c}_loc"]
+
+    merged = merged[["placeid"] + num_cols]
+
+    if "category" in df_embb.columns:
+        merged["category"] = df_embb.set_index("placeid").loc[merged["placeid"], "category"].values
+
+    df_embb_next = merged
+
     df_filter = pd.read_csv(f'{OUTPUT_ROOT}/{state}/filtrado.csv')
     output_path = f'{OUTPUT_ROOT}/{state}/pre-processing/'
     sequences_path = f'{output_path}poi-sequences.csv'
@@ -408,9 +430,8 @@ def process_state(state):
     category_input_path = f'{output_path}category-input.csv'
 
     os.makedirs(output_path, exist_ok=True)
-
     generate_category_input(df_embb, category_input_path)
-    generate_next_input(df_embb, df_filter, sequences_path, next_input_path)
+    generate_next_input(df_embb_next, df_filter, sequences_path, next_input_path)
 
 
 if __name__ == "__main__":

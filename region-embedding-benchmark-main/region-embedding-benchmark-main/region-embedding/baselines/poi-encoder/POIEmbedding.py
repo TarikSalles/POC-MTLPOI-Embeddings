@@ -52,7 +52,7 @@ class PreProcess:
         self.filename_boroughs = filename_boroughs
         self.h3 = h3
 
-    def _align_by_intersection(self, reg_key: str):
+    def _align_by_intersections(self, reg_key: str):
       # 1) normaliza tipo (evita '00123' vs 123)
       self.pois[reg_key] = self.pois[reg_key].astype(str)
       self.boroughs[reg_key] = self.boroughs[reg_key].astype(str)
@@ -86,7 +86,7 @@ class PreProcess:
       mat = pd.crosstab(self.pois[reg_key], self.pois['fclass']).reindex(regions, fill_value=0)
       self.region_coarse_region_similarity = cosine_similarity(mat.values)
 
-
+    
     def read_poi_data(self):
         self.pois = pd.read_csv(self.filename_pois)
         self.pois["geometry"] = self.pois["geometry"].apply(wkt.loads)

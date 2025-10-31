@@ -1,0 +1,56 @@
+{
+    "Community": {
+        "precision": 0.6,
+        "recall": 0.4186046511627907,
+        "f1-score": 0.4931506849315068,
+        "support": 43.0
+    },
+    "Entertainment": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 8.0
+    },
+    "Food": {
+        "precision": 0.3424657534246575,
+        "recall": 0.4166666666666667,
+        "f1-score": 0.37593984962406013,
+        "support": 60.0
+    },
+    "Nightlife": {
+        "precision": 0.4,
+        "recall": 0.16666666666666666,
+        "f1-score": 0.23529411764705882,
+        "support": 12.0
+    },
+    "Outdoors": {
+        "precision": 0.2702702702702703,
+        "recall": 0.625,
+        "f1-score": 0.37735849056603776,
+        "support": 16.0
+    },
+    "Shopping": {
+        "precision": 0.4642857142857143,
+        "recall": 0.28888888888888886,
+        "f1-score": 0.3561643835616438,
+        "support": 45.0
+    },
+    "Travel": {
+        "precision": 0.4838709677419355,
+        "recall": 0.4411764705882353,
+        "f1-score": 0.46153846153846156,
+        "support": 34.0
+    },
+    "macro avg": {
+        "precision": 0.3658418151032254,
+        "recall": 0.3367147634247497,
+        "f1-score": 0.3284922839812527,
+        "support": 218.0
+    },
+    "weighted avg": {
+        "precision": 0.4257648604398473,
+        "recall": 0.38073394495412843,
+        "f1-score": 0.3868937644169788,
+        "support": 218.0
+    }
+}

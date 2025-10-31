@@ -217,8 +217,7 @@ class Preprocess():
           self.boroughs = self.boroughs.sort_values("GEOID").reset_index(drop=True)
 
       self.n_regions = len(self.boroughs)
-
-    def _read_embedding(self):
+    def _read_embedding_old(self):
       # Carrega no CPU e garante que é Tensor "desanexado"
       state = torch.load(self.embedding_filename, map_location="cpu")
       emb_t = state["in_embed.weight"]
@@ -240,6 +239,12 @@ class Preprocess():
       self.embedding_array = [emb_list[i] for i in idx]
 
       # (opcional) manter a coluna no GeoDataFrame
+      self.pois["embedding"] = self.embedding_array
+
+    def _read_embedding(self):
+      # Sem POIEncoder: cria vetor dummy (zeros)
+      D = 64  # ou dimensão do seu encoder de localização
+      self.embedding_array = [[0.0] * D for _ in range(len(self.pois))]
       self.pois["embedding"] = self.embedding_array
 
 

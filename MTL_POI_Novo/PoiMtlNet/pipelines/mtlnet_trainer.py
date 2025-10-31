@@ -23,7 +23,7 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
 
-    state = args.state.lower().strip()
+    state = args.state
     logging.info(f"Iniciando treinamento para o estado: {state}")
 
     output_dir = f'{OUTPUT_ROOT}/{state}/pre-processing'

@@ -338,7 +338,7 @@ def train_with_cross_validation(dataloaders: dict[int, dict[str, SuperInputData]
         alpha_cat = torch.tensor(weights_cat, dtype=torch.float32, device=DEVICE)
 
         next_criterion = CrossEntropyLoss(reduction='mean', weight=alpha_next)
-        category_criterion = CrossEntropyLoss(reduction='mean')
+        category_criterion = CrossEntropyLoss(reduction='mean',weight=alpha_cat)
         mtl_criterion = NashMTL(n_tasks=2, device=DEVICE, max_norm=2.2, update_weights_every=4, optim_niter=30)
         # mtl_criterion = NaiveLoss(alpha=0.5, beta=0.5)
 

@@ -1,0 +1,56 @@
+{
+    "Community": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 33.0
+    },
+    "Entertainment": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 21.0
+    },
+    "Food": {
+        "precision": 0.34870317002881845,
+        "recall": 0.8642857142857143,
+        "f1-score": 0.49691991786447637,
+        "support": 140.0
+    },
+    "Nightlife": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 28.0
+    },
+    "Outdoors": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 31.0
+    },
+    "Shopping": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 103.0
+    },
+    "Travel": {
+        "precision": 0.26229508196721313,
+        "recall": 0.3076923076923077,
+        "f1-score": 0.2831858407079646,
+        "support": 52.0
+    },
+    "macro avg": {
+        "precision": 0.08728546457086164,
+        "recall": 0.16742543171114602,
+        "f1-score": 0.11144367979606298,
+        "support": 408.0
+    },
+    "weighted avg": {
+        "precision": 0.1530828138880629,
+        "recall": 0.33578431372549017,
+        "f1-score": 0.20660404955353148,
+        "support": 408.0
+    }
+}

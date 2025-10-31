@@ -5,6 +5,7 @@ import pandas as pd
 from configs.model import InputsConfig
 from configs.paths import OUTPUT_ROOT, IO_CHECKINS
 from src.data.embeddings.hmrm.hmrm_new import HmrmBaselineNew
+import argparse
 
 
 def etl_checkins(df: pd.DataFrame):
@@ -79,20 +80,25 @@ def create_embeddings(state_name, path, **kwargs):
         print(f'Error processing {state_name}: {str(e)}')
         raise
 
+def main():
+    parser = argparse.ArgumentParser(description='Generate HMRM embeddings for a given state.')
+    parser.add_argument('--state', required=True, help='Nome do estado (ex.: alabama, Alabama, new_york)')
+    parser.add_argument('--weight', type=float, default=0.1)
+    parser.add_argument('--K', type=int, default=7)
+    parser.add_argument('--embedding_size', type=int, default=64)
+    args = parser.parse_args()
+
+    state_norm = _title_case_state(args.state)
+    path = resolve_checkins_path(state_norm)
+
+    create_embeddings(
+        state_norm.lower().replace(' ', '_'),
+        path,
+        weight=args.weight,
+        K=args.K,
+        embedding_size=args.embedding_size
+    )
+
 
 if __name__ == '__main__':
-    path_alabama = os.path.join(IO_CHECKINS, 'Alabama.csv')
-    path_arizona = os.path.join(IO_CHECKINS, 'Arizona.csv')
-    path_georgia = os.path.join(IO_CHECKINS, 'Georgia.csv')
-
-    path_california = os.path.join(IO_CHECKINS, 'California.csv')
-    path_florida = os.path.join(IO_CHECKINS, 'Florida.csv')
-    path_texas = os.path.join(IO_CHECKINS, 'Texas.csv')
-    path_montana = os.path.join(IO_CHECKINS, 'checkins_Montana.csv')
-
-    # _ = create_embeddings('alabama', path_alabama, weight=0.1, K=7, embedding_size=50)
-    # _ = create_embeddings('arizona', path_arizona, weight=0.1, K=7, embedding_size=50)
-    # _ = create_embeddings('georgia', path_georgia, weight=0.1, K=7, embedding_size=50)
-    # _ = create_embeddings('california', path_california, weight=0.1, K=7, embedding_size=50)
-    #_ = create_embeddings('montana', path_montana, weight=0.1, K=7, embedding_size=64)
-    # _ = create_embeddings('texas', path_texas, weight=0.1, K=7, embedding_size=50)
+    main()

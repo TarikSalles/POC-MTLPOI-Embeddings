@@ -13,6 +13,6 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    state_name = args.state_name.lower().strip()
+    state_name = args.state_name
 
     process_state(state_name)
