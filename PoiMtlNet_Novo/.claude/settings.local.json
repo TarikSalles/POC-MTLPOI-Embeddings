@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir:*)",
+      "Bash(python:*)",
+      "Bash(source:*)",
+      "Bash(system_profiler:*)",
+      "Bash(sw_vers)",
+      "Bash(/Users/vitor/Desktop/mestrado/ingred/.venv/bin/python:*)",
+      "Bash(PYTHONPATH=src /Users/vitor/Desktop/mestrado/ingred/.venv/bin/python:*)"
+    ],
+    "deny": []
+  }
+}

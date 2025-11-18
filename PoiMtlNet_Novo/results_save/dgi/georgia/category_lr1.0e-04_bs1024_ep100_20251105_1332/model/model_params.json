@@ -1,0 +1,135 @@
+{
+    "model": {
+        "name": "Category",
+        "type": "Single-Task"
+    },
+    "training": {
+        "folds": 5,
+        "tasks": [
+            "category"
+        ],
+        "dates": {
+            "start": "20251105_1332",
+            "end": "20251105_133700"
+        }
+    },
+    "datasets": [
+        {
+            "raw_data": "/Users/vitor/Desktop/mestrado/ingred/output/dgi/georgia/input/category.parquet",
+            "description": "POI Category Classification",
+            "folds_signature": null
+        }
+    ],
+    "flops": {
+        "flops": 60928,
+        "params": 10967,
+        "memory": [],
+        "inference_time": [],
+        "training_time": []
+    },
+    "hyperparameters": {
+        "batch_size": 1024,
+        "num_epochs": 100,
+        "learning_rate": 0.0001,
+        "optimizer": "AdamW",
+        "optimizer_state": {
+            "state": {},
+            "param_groups": [
+                {
+                    "lr": 0.0003999999999999993,
+                    "betas": [
+                        0.95,
+                        0.999
+                    ],
+                    "eps": 1e-08,
+                    "weight_decay": 0.05,
+                    "amsgrad": false,
+                    "foreach": null,
+                    "maximize": false,
+                    "capturable": false,
+                    "differentiable": false,
+                    "fused": null,
+                    "initial_lr": 0.0004,
+                    "max_lr": 0.01,
+                    "min_lr": 4e-08,
+                    "max_momentum": 0.95,
+                    "base_momentum": 0.85,
+                    "params": [
+                        0,
+                        1,
+                        2,
+                        3,
+                        4,
+                        5,
+                        6,
+                        7,
+                        8,
+                        9,
+                        10,
+                        11,
+                        12,
+                        13,
+                        14,
+                        15,
+                        16,
+                        17,
+                        18,
+                        19,
+                        20,
+                        21,
+                        22,
+                        23,
+                        24,
+                        25,
+                        26,
+                        27,
+                        28,
+                        29,
+                        30,
+                        31,
+                        32
+                    ]
+                }
+            ]
+        },
+        "scheduler": "OneCycleLR",
+        "scheduler_state": {
+            "total_steps": 2300,
+            "_schedule_phases": [
+                {
+                    "end_step": 689.0,
+                    "start_lr": "initial_lr",
+                    "end_lr": "max_lr",
+                    "start_momentum": "max_momentum",
+                    "end_momentum": "base_momentum"
+                },
+                {
+                    "end_step": 2299,
+                    "start_lr": "max_lr",
+                    "end_lr": "min_lr",
+                    "start_momentum": "base_momentum",
+                    "end_momentum": "max_momentum"
+                }
+            ],
+            "_anneal_func_type": "cos",
+            "cycle_momentum": true,
+            "use_beta1": true,
+            "base_lrs": [
+                0.0004
+            ],
+            "last_epoch": 0,
+            "verbose": false,
+            "_step_count": 1,
+            "_get_lr_called_within_step": false,
+            "_last_lr": [
+                0.0003999999999999993
+            ]
+        },
+        "criterion": {
+            "category": "CrossEntropyLoss"
+        },
+        "criterion_state": {
+            "category": {}
+        }
+    }
+}

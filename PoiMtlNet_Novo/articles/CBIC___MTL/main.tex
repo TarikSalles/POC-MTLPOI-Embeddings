@@ -1,0 +1,88 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+%Template version as of 6/27/2024
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{url}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\usepackage{comment}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+% A linha abaixo ajuda a posicionar o algoritmo onde ele é definido.
+% Pode ser necessário \usepackage{float}
+% \restylefloat{algorithm}
+
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{An Investigation into Multi-Task Learning for Point-of-Interest Category Classification and Next-POI Prediction  \\
+}
+
+
+
+\author{\IEEEauthorblockN{Vitor H. O. Silva, Ingred F. Almeida, Tarik S. Paiva, Germano B.\ Santos, Fabrício A.\ Silva, Felipe T. Sousa}
+\IEEEauthorblockA{Laboratório de Inteligência em Sistemas Pervasivos e Distribuídos (NESPeD-LAB), UFV, Florestal, Brazil}
+E-mail: \{vitor.h.oliveira, ingred.almeida,  tarik.paiva, germano.santos, fabricio.asilva, felipe.t.sousa\}@ufv.br
+}
+
+\maketitle
+
+\begin{abstract}
+Multi-Task Learning (MTL) has shown significant promise across various domains by improving generalization and robustness through shared representations. This work explores MTL within Location-Based Social Networks (LBSNs), focusing on two complementary tasks: POI Category Classification and Next-POI Prediction. We propose a joint MTL architecture that shares lower-level embeddings and sequence encoders while maintaining task-specific heads. Through experiments on the Gowalla LBSN dataset, we compare our MTL model against established single-task baselines. While our model demonstrated strong performance in POI category classification, outperforming the Human Mobility Representation Model (HMRM), the results for next-POI prediction were more competitive against MHA+PE. Crucially, our findings indicate that the multi-task learning approach did not consistently yield substantial improvements over the single-task baselines across both tasks, with many performance differences being minor and often within statistical standard deviations. Furthermore, contrary to expectations, the MTL model required significantly more computational resources and wall time to converge compared to the cumulative effort of individual single-task models. Our contributions include the introduction of a unified MTL framework for these POI-related tasks, the design of novel task-specific heads, and a detailed analysis of performance and convergence characteristics, highlighting observed limitations of MTL in this specific application. This research provides insights into the practical challenges of applying MTL, emphasizing the need for careful architectural design and optimization in achieving its theoretical benefits.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Multi-Task Learning, Point-of-Interest (POI), Location-Based Recommendation, Sequential Modeling
+\end{IEEEkeywords}
+
+
+%
+% INTRODUCTION
+%
+\input{sections/intro}
+
+%
+% Theoretical Foundations and Related Work
+%
+\input{sections/basis}
+
+%
+% Methodology
+%
+\input{sections/method}
+
+%
+% Experimental Setup and Results
+%
+\input{sections/results}
+
+%
+% Conclusion and Future Work
+%
+\input{sections/conclusion}
+
+\section*{Acknowledgment} 
+The authors would like to acknowledge the support of the Brazilian Ministry of Science, Technology and Innovations (MCTI), the Manna Team, Fundação Araucária, Softex, CNPq (Grant Number 421548/2022-3), and the Research Support Foundation of the State of Minas Gerais (FAPEMIG), and CAPES.
+
+%
+% REFERENCES
+%
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+
+
+\end{document}

@@ -1,0 +1,79 @@
+\section{Theoretical Foundations and Related Work}
+\label{sec:related}
+
+%
+% Trazer texto traduzido é corrigido do BRACIS
+% Ver com a ingred o texto que ela tmb fez pode ajudar
+% Topicos a serem discutidos:✅
+% 1. POI Prediction and Next-POI classification **Formalmente** //Tarik
+%   - Explicar essas tarefas 
+% 2. Multitaks learning ✅
+%   - Da onde surgiu
+%   - O que resolveu
+%   - Estado atual (Revisões da literatura)
+%   - Archs \& otimizdores
+%   - Desafios de se implementar
+% 3. Multitask learning applied in POI 
+%   -  Usar o que foi escrito pela ingred + tarik //Tarik
+
+
+\subsection{POI Classification and Next-POI Prediction}
+POI Category Classification refers to the task of inferring the semantic category of a location based on contextual information such as geographic coordinates, visit frequency, or user behavior.
+
+Next-POI Prediction, in contrast, aims to predict which specific location a user is likely to visit next, given their past movement history. It is a sequential task that requires modeling temporal and spatial patterns within user trajectories.
+
+The prediction and classification of POIs are fundamental challenges in applications such as recommendation systems and urban planning. Xu et al.
+~\cite{Xu2023} propose the Tree-guided Multi-task Embedding (TME) model, which aims to improve the semantic annotation of POIs using a hierarchical structure of categories and mobility-based representation learning. 
+%Complementarily, Santos et al. propose HAVANA, a Hybrid Attentional Graph Convolutional Network Semantic Venue Annotation Model, a hybrid model that combines Graph Attention Networks (GAT) and Auto-Regressive Moving Average (ARMA) to improve the accuracy of semantic location labeling 
+
+POI Category Classification has been extensively addressed in location-based recommendation systems, with various techniques applied to capture patterns and improve prediction accuracy. In this context, Lim et al.~\cite{Lim2022} propose the Hierarchical Multi-Task Graph Recurrent Network (HMT-GRN), which uses multi-task learning to simultaneously predict the next POI and its geographic region.
+
+%Similarly, Capanema et al. introduce the Points of Interest-Recurrent and Graph-based Neural Network (POI RGNN) model, which integrates Recurrent Neural Networks (RNNs) with Graph Neural Networks (GNNs) to predict the category of the next POI. The innovation of POI-RGNN lies in the combination of recurrent components that capture the user’s recent behavior and graph components that model general behavior based on historical data aggregated in a graph.
+
+
+Although these approaches have made significant progress in the POI classification and next-location prediction fields, they tend to focus only on single-task objectives. None of the cited models propose a unified multi-task learning (MTL) framework that jointly optimizes both POI category classification and next-POI prediction tasks. This motivates the development of solutions that leverage shared representations across related POI tasks.
+
+
+\subsection{Multi-Task Learning}\label{sec:mtl}
+
+MTL was formalized by Caruana \cite{caruana1997multitask} as an inductive transfer mechanism that enhances generalization by learning shared representations across related tasks. Early neural architectures employed \emph{hard parameter sharing}, where a common set of hidden layers is used for all tasks, yielding strong regularization and reduced training time.
+
+Recent surveys \cite{yu2024survey,zhang2021survey} organize contemporary MTL research along five methodological dimensions: (i) \textit{parameter sharing} (hard vs.\ soft); (ii) \textit{relationship learning} (discovering task affinity or hierarchy); (iii) \textit{feature routing} (e.g., cross-stitch, sluice networks, attention gating); (iv) \textit{optimization} (conflict-aware gradient techniques); and (v) \textit{pre-training and instruction tuning}. MTL has evolved from small, homogeneous task sets to dozens of heterogeneous objectives spanning computer vision, natural language processing, and recommender systems.
+
+A fundamental architectural challenge in MTL is deciding \emph{how much}, \emph{where}, and \emph{when} to share parameters across tasks. Three canonical sharing schemes have emerged:
+
+\paragraph*{Hard Parameter Sharing}  
+A single encoder is shared by all tasks, followed by task-specific heads. This remains the simplest and most popular baseline, providing effective regularization \cite{caruana1997multitask}.
+\paragraph*{Soft Parameter Sharing}  
+Each task has its own encoder, but networks exchange information through learned cross-connections, such as Cross-Stitch units \cite{misra2016cross} or Sluice networks \cite{ruder2017sluice}.
+\paragraph*{Mixture-of-Experts (MoE)}  
+Multi-Gate Mixture-of-Experts (MMoE) architectures maintain a pool of shared expert subnetworks; each task learns a gating function to combine experts, outperforming monolithic sharing in large-scale recommendation settings \cite{ma2018mmoe,yu2019mmoe}.
+
+To mitigate task interference and loss imbalance, several optimization techniques have been proposed: GradNorm equalizes gradient magnitudes across tasks \cite{chen2018gradnorm}; MGDA finds Pareto-optimal descent directions \cite{sener2018mgda}; PCGrad removes conflicting gradient components \cite{yu2020pcgrad}; and Dynamic Weight Averaging (DWA) reweights losses based on their relative learning speeds \cite{liu2019dwa}.
+
+Despite these successes, MTL still faces several key challenges:
+\begin{itemize}
+  \item \textbf{Negative Transfer} — Unrelated or adversarial tasks can degrade shared representations, harming individual task performance \cite{ruder2017sluice,zhang2021survey}.
+  \item \textbf{Gradient Conflict} — Simultaneous optimization may produce opposing gradient directions, slowing or destabilizing convergence \cite{yu2020pcgrad,sener2018mgda}.
+  \item \textbf{Data Heterogeneity} — Variations in modality, label granularity, and dataset size complicate sampling strategies and minibatch construction \cite{nash,standley2020tasks}.
+  \item \textbf{Scalability} — Routing complexity, memory footprint, and evaluation costs often grow super-linearly as the number of tasks increases \cite{zhang2021survey,yu2024survey}.
+\end{itemize}
+
+
+Recent work addresses these issues via task clustering \cite{standley2020tasks}, dynamic curricula, conflict-aware optimizers, and parameter-efficient adapters \cite{yu2024survey}. Nevertheless, principled criteria for task grouping, theoretical guarantees of Pareto efficiency, and energy-efficient training of very large MTL foundation models remain open research directions.
+
+
+\subsection{Multi-task learning applied in POI}
+MTL has been explored in problems related to Points of Interest (POIs), primarily due to its ability to improve generalization by leveraging shared information across correlated tasks. In POI modeling scenarios, such as user trajectory prediction and recommendation, MTL allows the learning of complementary objectives simultaneously, allowing for more accuracy.
+
+
+Early MTL-based approaches such as MCARNN~\cite{Liao2018} employ recurrent neural networks with temporal attention mechanisms to jointly predict user activities and future visited locations. Similarly, the iMTL framework~\cite{Zhang2020} uses an LSTM architecture to model next-activity prediction, incorporating temporal dynamics in user behavior modeling.
+
+More recent works have begun incorporating contextual and semantic signals. TLR-M~\cite{Halder2021}, for example, applies Transformer-based architectures to simultaneously predict the next POI and queue waiting time, demonstrating the value of attention-based models in capturing spatio-tegm
+mporal dependencies. MTPR~\cite{Xia2020} combines LSTMs and adversarial learning to address uncertainty in check-ins and improve multi-task POI recommendation both location and temporal context with a generative component.
+
+Despite these advances, existing MTL approaches often focus on joint modeling of next-POI prediction and temporal or behavioral signals, while the relationship between POI category classification and next-POI prediction remains underexplored. Some Models such as TME~\cite{Xu2023} address category annotation using graph-based encoders, but treat prediction and classification separately.
+
+This creates a gap in the literature regarding the joint modeling of semantic and sequential POI tasks. In contrast, our proposed model introduces a unified MTL framework that jointly performs POI category prediction and next-POI classification using a hard parameter-sharing architecture. By modeling both tasks simultaneously, our approach promotes knowledge transfer across shared spatio-temporal representations, enabling more robust predictions even in data-sparse environments.
+
+

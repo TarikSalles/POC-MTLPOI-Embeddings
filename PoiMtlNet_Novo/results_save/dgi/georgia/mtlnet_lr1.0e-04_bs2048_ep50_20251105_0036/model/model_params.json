@@ -1,0 +1,19 @@
+{
+    "model": {
+        "name": "MTLNet",
+        "type": "MTL"
+    },
+    "training": {
+        "folds": 5,
+        "tasks": [
+            "category",
+            "next"
+        ],
+        "dates": {
+            "start": "20251105_0036",
+            "end": "20251105_005954"
+        }
+    },
+    "datasets": [
+        {
+            "raw_data": 

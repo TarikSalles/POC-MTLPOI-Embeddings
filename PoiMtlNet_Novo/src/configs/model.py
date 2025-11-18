@@ -1,0 +1,30 @@
+class InputsConfig:
+    EMBEDDING_DIM = 64 # DGI
+    # EMBEDDING_DIM = 50*2+7 #HMRM
+    SLIDE_WINDOW = 9
+    PAD_VALUE = 0
+    TIMEOUT_TEST = None
+    # NEXT_TARGET = 32.2
+    # CATEGORY_TARGET = 47.0
+    NEXT_TARGET = None
+    CATEGORY_TARGET = None
+
+class MTLModelConfig:
+    NUM_CLASSES = 7
+    BATCH_SIZE = 2**11 # 2048
+    EPOCHS = 50
+    LEARNING_RATE = 0.0001
+    K_FOLDS = 5
+
+class ModelParameters:
+    INPUT_DIM = InputsConfig.EMBEDDING_DIM
+    SHARED_LAYER_SIZE = 256
+    NUM_HEADS = 8
+    NUM_LAYERS = 4
+    SEQ_LENGTH = 9
+    NUM_SHARED_LAYERS = 4
+
+    ENCODER_OUTPUT_SIZE = 256
+    EXPERT_HIDDEN_SIZE = 256
+    EXPERT_OUTPUT_SIZE = 256
+    NUM_EXPERTS = 9
